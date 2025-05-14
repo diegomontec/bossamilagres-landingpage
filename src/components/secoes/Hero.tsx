@@ -29,7 +29,7 @@ export default function Hero() {
             className="w-sm"
             alt=""
           />
-          <Button onClick={() => {}} href="#form">Saiba mais!</Button>
+          <Button onClick={() => {}} href="">Saiba mais!</Button>
         </div>
       </div>
     </section>

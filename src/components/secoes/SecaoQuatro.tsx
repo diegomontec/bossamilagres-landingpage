@@ -50,7 +50,7 @@ export default function SecaoQuatro() {
           />
         </article>
 
-        <Button onClick={() => {}} href="#form">
+        <Button onClick={() => {}} href="">
           Saiba mais!
         </Button>
       </div>

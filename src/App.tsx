@@ -47,10 +47,10 @@ function App() {
         <SecaoDez />
         <SecaoOnze />
         <SecaoDoze />
-
       </div>
     </div>
   )
 }
 
 export default App
+
