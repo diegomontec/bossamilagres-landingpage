@@ -17,6 +17,9 @@ import SecaoNove from './components/secoes/SecaoNove'
 import SecaoDez from './components/secoes/SecaoDez'
 import SecaoDoze from './components/secoes/SecaoDoze';
 import SecaoOnze from './components/secoes/SecaoOnze';
+import SecaoTreze from './components/secoes/secaoTreze';
+import SecaoQuatorze from './components/secoes/SecaoQuatorze';
+import SecaoQuinze from './components/secoes/secaoQuinze';
 
 function App() {
   useLayoutEffect(() => {
@@ -47,6 +50,9 @@ function App() {
         <SecaoDez />
         <SecaoOnze />
         <SecaoDoze />
+        <SecaoTreze />
+        <SecaoQuatorze />
+        <SecaoQuinze />
       </div>
     </div>
   )
