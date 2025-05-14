@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+#smooth-wrapper {
+  overflow: hidden;
+  height: 100vh;
+}
+
+#smooth-content {
+  min-height: 100%;
+}
