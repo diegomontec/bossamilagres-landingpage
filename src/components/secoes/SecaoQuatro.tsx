@@ -42,17 +42,16 @@ export default function SecaoQuatro() {
           <Carousel images={imagensSecaoQuatro} altTextPrefix="" />
         </article>
 
-        <article className="flex flex-col w-full items-center justify-center max-w-6xl">
-          <img
-            className="w-xl md:w-2/3 lg:w-1/2 xl:w-1/2"
-            src="/images/secaoQuatro/SecaoQuatroTextoTres.png"
-            alt="Conclusão da seção"
-          />
+        <article className="flex flex-col w-full bg-red items-center justify-center max-w-6xl">
+          <div className="flex flex-col items-center justify-center gap-8">
+            <img
+              className="w-xl md:w-2/3 lg:w-full xl:w-full"
+              src="/images/secaoQuatro/SecaoQuatroTextoTres.png"
+              alt="Conclusão da seção"
+            />
+            <Button>Saiba mais!</Button>
+          </div>
         </article>
-
-        <Button onClick={() => {}} href="">
-          Saiba mais!
-        </Button>
       </div>
     </section>
   );

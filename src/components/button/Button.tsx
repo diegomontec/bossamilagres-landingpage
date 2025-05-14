@@ -1,4 +1,4 @@
-import React from "react";
+import { CButton } from "@coreui/react";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -10,29 +10,22 @@ interface ButtonProps {
 
 export default function Button({
   children,
-  className = "",
+  className = "inline-block bg-[#8d8b6f] w-full text-white py-2 text-base font-medium transition-colors duration-300 hover:bg-[#7b7960] rounded-full"
+,
   href,
   onClick,
   type = "button",
 }: ButtonProps) {
-  const baseStyle =
-    "inline-block bg-[#8d8b6f] text-white px-32 py-2 rounded-full text-base font-medium no-underline transition-colors duration-300 hover:bg-[#7b7960] ";
-
-  if (href) {
-    return (
-      <a href={href} style={{ textDecoration: "none" }} className={`${baseStyle} ${className}`}>
-        {children}
-      </a>
-    ); 
-  }
-
   return (
-    <button
+    <CButton
+      href={href}
       onClick={onClick}
       type={type}
-      className={`${baseStyle} ${className}`}
+      shape="rounded-3"
+      className={className}
+      color="success"
     >
       {children}
-    </button>
+    </CButton>
   );
 }
