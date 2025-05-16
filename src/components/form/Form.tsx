@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CForm,
   CFormInput,
@@ -7,13 +7,16 @@ import {
   CFormLabel,
   CAlert,
 } from '@coreui/react';
+import { Location } from '../store/location'; 
 import Button from '../button/Button';
 
 const FormComponent = () => {
+  const { estados, cidades, fetchEstados, fetchCidades } = Location();
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
     telefone: '',
+    estado: '',
     cidade: '',
     captcha: '',
     comunicacao: false,
@@ -22,22 +25,26 @@ const FormComponent = () => {
   const [errors, setErrors] = useState<{ telefone?: string }>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    if (e.target instanceof HTMLInputElement) {
-      const { name, value, type, checked } = e.target;
-      setFormData((prev) => ({
-        ...prev,
-        [name]: type === 'checkbox' ? checked : value,
-      }));
-    } else {
-      const { name, value } = e.target;
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
-  };
+  useEffect(() => {
+    fetchEstados();
+  }, [fetchEstados]);
 
+  useEffect(() => {
+    if (formData.estado) {
+      fetchCidades(formData.estado);
+    }
+  }, [fetchCidades, formData.estado]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const target = e.target as HTMLInputElement;
+    const { name, value, type, checked } = target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+      ...(name === 'estado' && { cidade: '' }),
+    }));
+  };
   const validate = () => {
     const newErrors: typeof errors = {};
     if (formData.telefone.length < 12) {
@@ -46,32 +53,33 @@ const FormComponent = () => {
     return newErrors;
   };
 
- const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-  const validationErrors = validate();
-  setErrors(validationErrors);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    setErrors(validationErrors);
 
-  if (Object.keys(validationErrors).length === 0) {
-    setSubmitted(true);
-    setFormData({
-      nome: '',
-      email: '',
-      telefone: '',
-      cidade: '',
-      captcha: '',
-      comunicacao: false,
-    });
+    if (Object.keys(validationErrors).length === 0) {
+      setSubmitted(true);
+      setFormData({
+        nome: '',
+        email: '',
+        telefone: '',
+        estado: '',
+        cidade: '',
+        captcha: '',
+        comunicacao: false,
+      });
 
-    setTimeout(() => {
-      setSubmitted(false);
-    }, 2000);
-  }
-};
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 2000);
+    }
+  };
 
   return (
     <CForm onSubmit={handleSubmit} className="w-full max-w-2xl text-white space-y-6">
       <div>
-        <CFormLabel htmlFor="nome">Nome*</CFormLabel>
+        <CFormLabel htmlFor="nome">Nome *</CFormLabel>
         <CFormInput
           type="text"
           id="nome"
@@ -83,7 +91,7 @@ const FormComponent = () => {
       </div>
 
       <div>
-        <CFormLabel htmlFor="email">Email*</CFormLabel>
+        <CFormLabel htmlFor="email">Email *</CFormLabel>
         <CFormInput
           type="email"
           id="email"
@@ -95,7 +103,7 @@ const FormComponent = () => {
       </div>
 
       <div>
-        <CFormLabel htmlFor="telefone">Telefone*</CFormLabel>
+        <CFormLabel htmlFor="telefone">Telefone *</CFormLabel>
         <CFormInput
           type="tel"
           id="telefone"
@@ -112,56 +120,41 @@ const FormComponent = () => {
       </div>
 
       <div>
-        <CFormLabel htmlFor="cidade">Cidade*</CFormLabel>
+        <CFormLabel htmlFor="estado">Estado *</CFormLabel>
         <CFormSelect
-            id="cidade"
-            name="cidade"
-            required
-            value={formData.cidade}
-            onChange={handleChange}
-            >
-            <option value="">Selecione um estado *</option>
-            <option value="Acre">Acre</option>
-            <option value="Alagoas">Alagoas</option>
-            <option value="Amapá">Amapá</option>
-            <option value="Amazonas">Amazonas</option>
-            <option value="Bahia">Bahia</option>
-            <option value="Ceará">Ceará</option>
-            <option value="Distrito Federal">Distrito Federal</option>
-            <option value="Espírito Santo">Espírito Santo</option>
-            <option value="Goiás">Goiás</option>
-            <option value="Maranhão">Maranhão</option>
-            <option value="Mato Grosso">Mato Grosso</option>
-            <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-            <option value="Minas Gerais">Minas Gerais</option>
-            <option value="Pará">Pará</option>
-            <option value="Paraíba">Paraíba</option>
-            <option value="Paraná">Paraná</option>
-            <option value="Pernambuco">Pernambuco</option>
-            <option value="Piauí">Piauí</option>
-            <option value="Rio de Janeiro">Rio de Janeiro</option>
-            <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-            <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-            <option value="Rondônia">Rondônia</option>
-            <option value="Roraima">Roraima</option>
-            <option value="Santa Catarina">Santa Catarina</option>
-            <option value="São Paulo">São Paulo</option>
-            <option value="Sergipe">Sergipe</option>
-            <option value="Tocantins">Tocantins</option>
-            </CFormSelect>
+          id="estado"
+          name="estado"
+          required
+          value={formData.estado}
+          onChange={handleChange}
+        >
+          <option value="">Selecione um estado</option>
+          {estados.map((estado) => (
+            <option key={estado.id} value={estado.sigla}>
+              {estado.nome}
+            </option>
+          ))}
+        </CFormSelect>
       </div>
 
-      {/* <div>
-        <CFormLabel htmlFor="captcha">2 + 1 = ?</CFormLabel>
-        <CFormInput
-          type="text"
-          id="captcha"
-          name="captcha"
+      <div>
+        <CFormLabel htmlFor="cidade">Cidade *</CFormLabel>
+        <CFormSelect
+          id="cidade"
+          name="cidade"
           required
-          value={formData.captcha}
+          value={formData.cidade}
           onChange={handleChange}
-        />
-      </div> */}
+          disabled={!formData.estado}
+        >
+          <option value="">Selecione uma cidade</option>
+          {cidades.map((cidade) => (
+            <option key={cidade.id} value={cidade.nome}>
+              {cidade.nome}
+            </option>
+          ))}
+        </CFormSelect>
+      </div>
 
       <div className="mt-6">
         <CFormCheck
@@ -174,10 +167,10 @@ const FormComponent = () => {
         />
       </div>
 
-      <Button type="submit" className="w-full">Enviar</Button>
+      <Button type="submit" className="w-full text-white bg-">Saber mais!</Button>
 
       {submitted && (
-        <CAlert color="success" className="mt-4">
+        <CAlert color="success" className="mt-4 ">
           Formulário enviado com sucesso!
         </CAlert>
       )}
