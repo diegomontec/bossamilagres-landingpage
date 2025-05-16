@@ -43,7 +43,7 @@ export default function SecaoQuatro() {
         </article>
 
         <article className="flex flex-col w-full bg-red items-center justify-center max-w-6xl">
-          <div className="flex flex-col items-center justify-center gap-8">
+          <div className="flex flex-col items-center justify-center gap-16">
             <img
               className="w-xl md:w-2/3 lg:w-full xl:w-full"
               src="/images/secaoQuatro/SecaoQuatroTextoTres.png"

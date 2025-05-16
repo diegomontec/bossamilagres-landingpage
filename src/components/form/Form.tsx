@@ -129,7 +129,9 @@ const FormComponent = () => {
           onChange={handleChange}
         >
           <option value="">Selecione um estado</option>
-          {estados.map((estado) => (
+          {estados
+            .sort((a, b) => a.nome.localeCompare(b.nome))
+            .map((estado) => (
             <option key={estado.id} value={estado.sigla}>
               {estado.nome}
             </option>
@@ -148,10 +150,12 @@ const FormComponent = () => {
           disabled={!formData.estado}
         >
           <option value="">Selecione uma cidade</option>
-          {cidades.map((cidade) => (
-            <option key={cidade.id} value={cidade.nome}>
-              {cidade.nome}
-            </option>
+          {cidades
+            .sort((a, b) => a.nome.localeCompare(b.nome))
+            .map((cidade) => (
+              <option key={cidade.id} value={cidade.nome}>
+                {cidade.nome}
+              </option>
           ))}
         </CFormSelect>
       </div>
@@ -167,7 +171,7 @@ const FormComponent = () => {
         />
       </div>
 
-      <Button type="submit" className="w-full text-white bg-">Saber mais!</Button>
+      <Button type="submit" className="w-full bg-red-800 text-white bg-">Saber mais!</Button>
 
       {submitted && (
         <CAlert color="success" className="mt-4 ">

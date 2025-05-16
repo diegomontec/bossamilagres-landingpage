@@ -8,10 +8,15 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
 }
 
+const customButton = {
+  '--cui-btn-color': '#ffffff',
+  '--cui-btn-bg': '#8d8b6f',
+  '--cui-hover-btn-bg': '#7b7960',
+}
+
 export default function Button({
   children,
-  className = "inline-block bg-[#8d8b6f] w-full text-white py-2 text-base font-medium transition-colors duration-300 hover:bg-[#7b7960] rounded-full"
-,
+  className = "",
   href,
   onClick,
   type = "button",
@@ -23,7 +28,7 @@ export default function Button({
       type={type}
       shape="rounded-3"
       className={className}
-      color="success"
+      style={customButton as React.CSSProperties}
     >
       {children}
     </CButton>

@@ -1,5 +1,5 @@
 import "@coreui/coreui/dist/css/coreui.min.css";
-import Button from "../button/Button";
+import CButton from "../button/Button";
 
 export default function Hero() {
   return (
@@ -19,10 +19,10 @@ export default function Hero() {
         <div className="flex flex-col items-center gap-8">
           <img
             src="./images/carouselHero/fraseUm.png"
-            className="w-sm"
+            className="w-1/2 sm:w-3/4"
             alt=""
           />
-          <Button className="text-white w-full">Saiba mais!</Button>
+          <CButton className="text-white w-1/2">Saiba mais!</CButton>
         </div>
       </div>
     </section>
