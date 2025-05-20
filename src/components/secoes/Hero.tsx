@@ -1,5 +1,5 @@
 import "@coreui/coreui/dist/css/coreui.min.css";
-import CButton from "../button/Button";
+import Button from "../button/Button";
 
 export default function Hero() {
   return (
@@ -22,7 +22,7 @@ export default function Hero() {
             className="w-1/2 sm:w-3/4"
             alt=""
           />
-          <CButton className="text-white w-1/2">Saiba mais!</CButton>
+          <Button href="#contato" className="text-white w-1/2 ">Saiba mais!</Button>
         </div>
       </div>
     </section>

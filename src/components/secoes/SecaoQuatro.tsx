@@ -49,7 +49,7 @@ export default function SecaoQuatro() {
               src="/images/secaoQuatro/SecaoQuatroTextoTres.png"
               alt="Conclusão da seção"
             />
-            <Button>Saiba mais!</Button>
+            <Button href="#contato">Saiba mais!</Button>
           </div>
         </article>
       </div>

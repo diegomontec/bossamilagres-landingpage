@@ -8,3 +8,13 @@
 #smooth-content {
   min-height: 100%;
 }
+
+.customButton {
+  background-color: #8d8b6f;
+  color: white;
+  border-radius: 1rem;
+}
+
+.customButton:hover {
+  background-color: #7b7960;
+}
