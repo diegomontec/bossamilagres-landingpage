@@ -6,6 +6,7 @@ export default function SecaoDoze() {
           className="absolute inset-0 w-full h-full object-cover z-0"
           src="/images/secaoDoze/SecaoDozeBG.png"
           alt="Plano de fundo verde texturizado"
+          loading="lazy"
         />
 
         <div className="relative z-10 max-w-6xl px-8 flex w-full h-full my-32 flex-col items-center justify-center">
@@ -13,6 +14,7 @@ export default function SecaoDoze() {
             className="w-full h-full object-cover rounded-md"
             src="/images/secaoDoze/secaoDozeImagem.png"
             alt="Homem sentado em uma cadeira, desenhando o projeto em um papel"
+            loading="lazy"
           />
         </div>
       </section>

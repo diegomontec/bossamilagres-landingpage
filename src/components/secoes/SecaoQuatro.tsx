@@ -19,6 +19,7 @@ export default function SecaoQuatro() {
         className="absolute inset-0 w-full h-full object-cover z-0"
         src="/images/secaoQuatro/SecaoQuatroBG.png"
         alt="Plano de fundo verde texturizado"
+        loading="lazy"
       />
 
       <div className="relative z-10 w-full py-32 px-8 flex flex-col items-center gap-24 justify-center">
@@ -27,6 +28,7 @@ export default function SecaoQuatro() {
             className="w-2/4 md:w-2/3 lg:w-1/2 xl:w-1/3"
             src="/images/secaoQuatro/SecaoQuatroTextoUm.png"
             alt="Explicação sobre o vídeo"
+            loading="lazy"
           />
           <div className="w-full">
             <Iframe videoId={"NOXS2mt86bo"} />
@@ -38,6 +40,7 @@ export default function SecaoQuatro() {
             className="w-2/4 md:w-2/3 lg:w-1/2 xl:w-1/2"
             src="/images/secaoQuatro/SecaoQuatroTextoDois.png"
             alt="Descrição da galeria de imagens"
+            loading="lazy"
           />
           <Carousel images={imagensSecaoQuatro} altTextPrefix="" />
         </article>
@@ -48,6 +51,7 @@ export default function SecaoQuatro() {
               className="w-xl md:w-2/3 lg:w-full xl:w-full"
               src="/images/secaoQuatro/SecaoQuatroTextoTres.png"
               alt="Conclusão da seção"
+              loading="lazy"
             />
             <Button href="#contato">Saiba mais!</Button>
           </div>

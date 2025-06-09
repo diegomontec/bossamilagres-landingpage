@@ -5,6 +5,7 @@ export default function SecaoSeis() {
         className="absolute inset-0 w-full h-full object-cover z-0"
         src="/images/secaoSete/SecaoSeteBG.png"
         alt="Plano de fundo verde texturizado"
+        loading="lazy"
       />
 
       <div className="relative z-10 max-w-6xl flex w-full h-full my-32 flex-col items-center justify-center">
@@ -14,11 +15,13 @@ export default function SecaoSeis() {
             className="w-3/4 sm:w-3/4 md:w-2/3 lg:w-1/2 rounded-md"
             src="/images/secaoSete/SecaoSeteFotos.png"
             alt="Descrição da galeria de imagens"
+            loading="lazy"
           />
           <img
             className="w-3/4 sm:w-3/4 md:w-2/3 lg:w-1/2"
             src="/images/secaoSete/secaoSeteTexto.png"
             alt="Explicação sobre o vídeo"
+            loading="lazy"
           />
         </article>
       </div>

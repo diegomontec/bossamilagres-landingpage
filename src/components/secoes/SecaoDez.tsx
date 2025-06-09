@@ -16,6 +16,7 @@ export default function SecaoSeis() {
         className="absolute inset-0 w-full h-full object-cover z-0"
         src="/images/secaoDez/secaoDezBG.png"
         alt="Plano de fundo verde texturizado"
+        loading="lazy"
       />
 
       <div className="relative z-10 max-w-6xl px-8 flex w-full h-full my-32 flex-col items-center justify-center">
