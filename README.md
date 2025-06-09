@@ -30,7 +30,7 @@ REACT_APP_MAKE_WEBHOOK=https://seu-webhook.aqui
 ### 🔍 Otimização de Performance
 
 - [ ] Converter imagens para WebP com compressão eficiente
-- [ ] Aplicar lazy loading nas imagens (`loading="lazy"`)
+ - [x] Aplicar lazy loading nas imagens (`loading="lazy"`)
 - [x] Revisar uso de fontes externas
 - [x] Minificar e limpar arquivos CSS/JS não utilizados
 - [x] Ativar cache e compressão na hospedagem
@@ -38,7 +38,7 @@ REACT_APP_MAKE_WEBHOOK=https://seu-webhook.aqui
 ### 🧠 Acessibilidade e SEO
 
 - [x] Atualizar `title`, `meta description` e tags de redes sociais
-- [ ] Atualizar tags `alt` nas imagens
+ - [x] Atualizar tags `alt` nas imagens
 - [ ] Revisar estrutura HTML para melhorar acessibilidade
 - [ ] Otimizar estrutura de arquivos para melhor SEO
 

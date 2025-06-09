@@ -4,7 +4,8 @@ export default function SecaoDois() {
       <img
         className=""
         src="./images/secaoDois/secaoDoisBG.png"
-        alt="Home sentado em uma cadeira, desenhando o projeto em um papel"
+        alt="Homem sentado em uma cadeira, desenhando o projeto em um papel"
+        loading="lazy"
       />
     </div>
   );
