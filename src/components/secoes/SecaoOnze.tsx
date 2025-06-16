@@ -5,7 +5,7 @@ export default function SecaoDoze() {
     <section id='contato' className="relative w-full flex justify-center items-center">
       <img
         className="absolute inset-0 w-full h-full object-cover z-0"
-        src="/images/secaoOnze/SecaoOnzeBG.png"
+        src="/images/secaoOnze/SecaoOnzeBG.webp"
         alt="Plano de fundo verde texturizado"
         loading="lazy"
       />

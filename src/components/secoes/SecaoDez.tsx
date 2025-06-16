@@ -1,12 +1,12 @@
 import Carousel from "../carousel/Carousel";
 
 const imagensSecaoDez = [
-    './images/carouselSecaoDez/secaoDezImagemUm.png',
-    './images/carouselSecaoDez/secaoDezImagemDois.png',
-    './images/carouselSecaoDez/secaoDezImagemTres.png',
-    './images/carouselSecaoDez/secaoDezImagemQuatro.png',
-    './images/carouselSecaoDez/secaoDezImagemCinco.png',
-    './images/carouselSecaoDez/secaoDezImagemSeis.png',
+    './images/carouselSecaoDez/secaoDezImagemUm.webp',
+    './images/carouselSecaoDez/secaoDezImagemDois.webp',
+    './images/carouselSecaoDez/secaoDezImagemTres.webp',
+    './images/carouselSecaoDez/secaoDezImagemQuatro.webp',
+    './images/carouselSecaoDez/secaoDezImagemCinco.webp',
+    './images/carouselSecaoDez/secaoDezImagemSeis.webp',
   ];
 
 export default function SecaoSeis() {
@@ -14,7 +14,7 @@ export default function SecaoSeis() {
     <section className="relative w-full flex justify-center items-center">
       <img
         className="absolute inset-0 w-full h-full object-cover z-0"
-        src="/images/secaoDez/secaoDezBG.png"
+        src="/images/secaoDez/secaoDezBG.webp"
         alt="Plano de fundo verde texturizado"
         loading="lazy"
       />

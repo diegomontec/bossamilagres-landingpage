@@ -3,13 +3,13 @@ import Carousel from "../carousel/Carousel";
 import Iframe from "../iframe/Iframe";
 
 const imagensSecaoQuatro = [
-  "./images/carouselSecaoQuatro/secaoQuatroImagemUm.jpg",
-  "./images/carouselSecaoQuatro/secaoQuatroImagemDois.jpg",
-  "./images/carouselSecaoQuatro/secaoQuatroImagemTres.jpg",
-  "./images/carouselSecaoQuatro/secaoQuatroImagemQuatro.jpg",
-  "./images/carouselSecaoQuatro/secaoQuatroImagemCinco.jpg",
-  "./images/carouselSecaoQuatro/secaoQuatroImagemSeis.jpg",
-  "./images/carouselSecaoQuatro/secaoQuatroImagemSete.jpg",
+  "./images/carouselSecaoQuatro/secaoQuatroImagemUm.webp",
+  "./images/carouselSecaoQuatro/secaoQuatroImagemDois.webp",
+  "./images/carouselSecaoQuatro/secaoQuatroImagemTres.webp",
+  "./images/carouselSecaoQuatro/secaoQuatroImagemQuatro.webp",
+  "./images/carouselSecaoQuatro/secaoQuatroImagemCinco.webp",
+  "./images/carouselSecaoQuatro/secaoQuatroImagemSeis.webp",
+  "./images/carouselSecaoQuatro/secaoQuatroImagemSete.webp",
 ];
 
 export default function SecaoQuatro() {
@@ -17,7 +17,7 @@ export default function SecaoQuatro() {
     <section className="relative w-full flex justify-center items-center">
       <img
         className="absolute inset-0 w-full h-full object-cover z-0"
-        src="/images/secaoQuatro/SecaoQuatroBG.png"
+        src="/images/secaoQuatro/SecaoQuatroBG.webp"
         alt="Plano de fundo verde texturizado"
         loading="lazy"
       />
@@ -26,7 +26,7 @@ export default function SecaoQuatro() {
         <article className="flex flex-col w-full items-center justify-center gap-8 max-w-6xl">
           <img
             className="w-2/4 md:w-2/3 lg:w-1/2 xl:w-1/3"
-            src="/images/secaoQuatro/SecaoQuatroTextoUm.png"
+            src="/images/secaoQuatro/SecaoQuatroTextoUm.webp"
             alt="Explicação sobre o vídeo"
             loading="lazy"
           />
@@ -38,7 +38,7 @@ export default function SecaoQuatro() {
         <article className="flex flex-col w-full items-center justify-center gap-8 max-w-6xl">
           <img
             className="w-2/4 md:w-2/3 lg:w-1/2 xl:w-1/2"
-            src="/images/secaoQuatro/SecaoQuatroTextoDois.png"
+            src="/images/secaoQuatro/SecaoQuatroTextoDois.webp"
             alt="Descrição da galeria de imagens"
             loading="lazy"
           />
@@ -49,7 +49,7 @@ export default function SecaoQuatro() {
           <div className="flex flex-col items-center justify-center gap-16">
             <img
               className="w-xl md:w-2/3 lg:w-full xl:w-full"
-              src="/images/secaoQuatro/SecaoQuatroTextoTres.png"
+              src="/images/secaoQuatro/SecaoQuatroTextoTres.webp"
               alt="Conclusão da seção"
               loading="lazy"
             />

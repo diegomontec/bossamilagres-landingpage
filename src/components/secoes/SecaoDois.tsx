@@ -3,7 +3,7 @@ export default function SecaoDois() {
     <div>
       <img
         className=""
-        src="./images/secaoDois/secaoDoisBG.png"
+        src="./images/secaoDois/secaoDoisBG.webp"
         alt="Homem sentado em uma cadeira, desenhando o projeto em um papel"
         loading="lazy"
       />

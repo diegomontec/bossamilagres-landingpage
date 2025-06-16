@@ -3,7 +3,7 @@ export default function SecaoQuatroze() {
     <section className="relative w-full flex justify-center items-center">
       <img
         className="absolute inset-0 w-full h-full object-cover z-0"
-        src="/images/secaoDoze/SecaoDozeBG.png"
+        src="/images/secaoDoze/SecaoDozeBG.webp"
         alt="Plano de fundo verde texturizado"
         loading="lazy"
       />
@@ -12,7 +12,7 @@ export default function SecaoQuatroze() {
         <article className="flex flex-col w-full items-center justify-center gap-16 max-w-6xl">
           <img
             className="w-full md:w-2/3 lg:w-1/2 xl:w-3/4"
-            src="/images/secaoQuatorze/secaoQuatorzeSelos.png"
+            src="/images/secaoQuatorze/secaoQuatorzeSelos.webp"
             alt="Explicação sobre o vídeo"
             loading="lazy"
           />
