@@ -1,6 +1,4 @@
-# 🌴 Bossa Eco Luxury Villas – Landing Page
-
-![Em Desenvolvimento](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
+# 🌴 Bossa Eco Luxury Villas
 
 Landing page institucional para o empreendimento **Bossa Eco Luxury Villas**, localizada em Milagres - AL.
 
@@ -8,7 +6,7 @@ Landing page institucional para o empreendimento **Bossa Eco Luxury Villas**, lo
 
 ## 🛠️ Configuração de Variáveis de Ambiente
 
-Este projeto usa variáveis de ambiente para proteger informações sensíveis.
+Este projeto usa variáveis de ambiente para coletar informações do formulário via WebHook, criado no Make.
 
 ### 📁 Arquivos `.env`
 
@@ -18,7 +16,7 @@ Este projeto usa variáveis de ambiente para proteger informações sensíveis.
 cp .env.example .env.local
 ```
 
-2. Edite o arquivo `.env.local` com suas configurações específicas.
+2. Edite o arquivo `.env.local`, inserindo seu WebHook:
 
 ```bash
 REACT_APP_MAKE_WEBHOOK=https://seu-webhook.aqui
