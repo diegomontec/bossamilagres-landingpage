@@ -7,6 +7,7 @@ interface ButtonProps {
   href?: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 const customButton = {
@@ -20,6 +21,7 @@ export default function Button({
   href,
   onClick,
   type = "button",
+  disabled = false,
 }: ButtonProps) {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (href?.startsWith("#")) {
@@ -42,6 +44,7 @@ export default function Button({
       shape="rounded-3"
       className={`customButton ${className}`}
       style={customButton as React.CSSProperties}
+      disabled={disabled}
     >
       {children}
     </CButton>

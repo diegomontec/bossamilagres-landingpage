@@ -3,7 +3,6 @@ import {
   CForm,
   CFormInput,
   CFormCheck,
-  CFormSelect,
   CFormLabel,
   CAlert,
 } from "@coreui/react";
@@ -14,7 +13,7 @@ import {
   ESTADOS_COMPLETOS 
 } from "../../data/cities";
 
-// Componente de Autocomplete Otimizado com opção "Outros"
+
 const CityStateAutocomplete = ({ 
   value, 
   onChange, 
@@ -32,12 +31,11 @@ const CityStateAutocomplete = ({
   const [filteredOptions, setFilteredOptions] = useState<City[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [showCustomInput, setShowCustomInput] = useState(false);
-  const [customInput, setCustomInput] = useState("");
+  const [customInput, setCustomInput] = useState<string>("");
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   
-  // Debounce para otimizar performance
-  const searchTimeoutRef = useRef<NodeJS.Timeout>();
+  const searchTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -56,12 +54,10 @@ const CityStateAutocomplete = ({
     setIsTyping(true);
     setShowCustomInput(false);
     
-    // Limpa timeout anterior
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
     
-    // Debounce de 300ms para otimizar performance
     searchTimeoutRef.current = setTimeout(() => {
       if (inputValue.length < 2) {
         setFilteredOptions([]);
@@ -70,11 +66,9 @@ const CityStateAutocomplete = ({
         return;
       }
 
-      // Usa o motor de busca otimizado
       const results = citySearchEngine.fuzzySearch(inputValue, 12);
       setFilteredOptions(results);
       
-      // Abre o dropdown apenas se há resultados OU se não há resultados (para mostrar opção personalizada)
       setIsOpen(true);
       setIsTyping(false);
     }, 300);
@@ -100,7 +94,6 @@ const CityStateAutocomplete = ({
 
   const handleCustomInputSubmit = () => {
     if (customInput.trim()) {
-      // Aceita qualquer texto como cidade personalizada
       onSelect(customInput.trim(), "Personalizado");
       onChange(customInput.trim());
       setShowCustomInput(false);
@@ -129,10 +122,10 @@ const CityStateAutocomplete = ({
             placeholder={placeholder}
             disabled={disabled}
             autoFocus={false}
-            className="pr-10" // Espaço para ícone
+            className="pr-10"
           />
           
-          {/* Ícone de busca */}
+
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             {isTyping ? (
               <div className="animate-spin w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full"></div>
@@ -208,7 +201,7 @@ const CityStateAutocomplete = ({
   );
 };
 
-// Componente de Seleção de Valor de Investimento
+
 const InvestmentValueSelect = ({ 
   value, 
   onChange, 
@@ -224,7 +217,6 @@ const InvestmentValueSelect = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Opções de valor de investimento
   const opcoesInvestimento = [
     { value: "", label: "Selecione" },
     { value: "2950000-5000000", label: "De R$ 2.950.000 a R$ 5.000.000" },
@@ -266,11 +258,11 @@ const InvestmentValueSelect = ({
         placeholder={placeholder}
         disabled={disabled}
         autoFocus={false}
-        className="pr-10 cursor-pointer" // Espaço para ícone e cursor pointer
+        className="pr-10 cursor-pointer"
         readOnly
       />
       
-      {/* Ícone de dropdown */}
+
       <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -299,9 +291,9 @@ const FormComponent = () => {
     nome: "",
     email: "",
     telefone: "",
-    cidadeEstado: "", // Campo vazio para o usuário escolher
+    cidadeEstado: "",
     valorInvestimento: "",
-    corretor: "Não", // Valor padrão: Não
+    corretor: "Não",
     comunicacao: false,
   });
 
@@ -329,7 +321,6 @@ const FormComponent = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Limpar erro quando o usuário começar a editar
     if (errors[name as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
@@ -344,7 +335,6 @@ const FormComponent = () => {
 
   const handleCidadeEstadoSelect = (cidade: string, estado: string) => {
     if (estado === "Personalizado") {
-      // Para cidades personalizadas, usa apenas o nome da cidade
       setData(prev => ({ 
         ...prev, 
         cidadeEstado: cidade,
@@ -352,7 +342,6 @@ const FormComponent = () => {
         estado: "Não especificado"
       }));
     } else {
-      // Para cidades da lista, usa o formato padrão
       const estadoCompleto = ESTADOS_COMPLETOS[estado] || estado;
       setData(prev => ({ 
         ...prev, 
@@ -373,33 +362,27 @@ const FormComponent = () => {
   const validate = () => {
     const newErrors: typeof errors = {};
     
-    // Validação do telefone
     if (data.telefone.length < 12) {
       newErrors.telefone = "Este campo deve ter no mínimo 12 caracteres";
     }
 
-    // Validação do email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(data.email)) {
       newErrors.email = "Email inválido";
     }
 
-    // Validação do nome
     if (data.nome.trim().length < 2) {
       newErrors.nome = "Nome deve ter pelo menos 2 caracteres";
     }
 
-    // Validação da cidade/estado
     if (!data.cidadeEstado.trim()) {
       newErrors.cidadeEstado = "Selecione sua cidade";
     }
 
-    // Validação do valor de investimento
     if (!data.valorInvestimento) {
       newErrors.valorInvestimento = "Selecione um valor de investimento";
     }
 
-    // Validação do corretor
     if (!data.corretor) {
       newErrors.corretor = "Selecione uma opção";
     }
@@ -410,11 +393,7 @@ const FormComponent = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(" Iniciando envio do formulário...");
-    console.log("📋 Dados do formulário:", data);
-
     const validationErrors = validate();
-    console.log("✅ Validação:", validationErrors);
     
     setErrors(validationErrors);
 
@@ -423,17 +402,14 @@ const FormComponent = () => {
       
       try {
         const webhookUrl = import.meta.env.VITE_MAKE_WEBHOOK;
-        console.log(" Webhook URL:", webhookUrl);
         
         if (!webhookUrl) {
           throw new Error("Webhook não configurado. Verifique o arquivo .env.local");
         }
 
-        // Determina cidade e estado baseado no valor
         let cidade = data.cidadeEstado;
         let estado = "Não especificado";
 
-        // Se contém " - ", é uma cidade da lista
         if (data.cidadeEstado.includes(' - ')) {
           const [cidadePart, estadoSigla] = data.cidadeEstado.split(' - ');
           cidade = cidadePart;
@@ -453,7 +429,7 @@ const FormComponent = () => {
           source: "Bossa Eco Luxury Villas Landing Page"
         };
 
-        console.log(" Payload para envio:", payload);
+
 
         const response = await fetch(webhookUrl, {
           method: "POST",
@@ -463,25 +439,22 @@ const FormComponent = () => {
           body: JSON.stringify(payload),
         });
 
-        console.log("📥 Resposta do webhook:", response.status, response.statusText);
+
 
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error("❌ Erro na resposta:", errorText);
           throw new Error(`Erro ${response.status}: ${response.statusText}`);
         }
 
-        const responseData = await response.text();
-        console.log("✅ Resposta completa:", responseData);
+        await response.text();
 
         setSubmitted(true);
         setData({
           nome: "",
           email: "",
           telefone: "",
-          cidadeEstado: "", // Campo vazio após envio
+          cidadeEstado: "",
           valorInvestimento: "",
-          corretor: "Não", // Mantém o valor padrão
+          corretor: "Não",
           comunicacao: false,
         });
 
@@ -489,7 +462,7 @@ const FormComponent = () => {
           setSubmitted(false);
         }, 5000);
       } catch (error) {
-        console.error("❌ Erro ao enviar para o Make: ", error);
+
         setErrors(prev => ({
           ...prev,
           submit: `Erro ao enviar formulário: ${error instanceof Error ? error.message : 'Erro desconhecido'}`
@@ -497,8 +470,6 @@ const FormComponent = () => {
       } finally {
         setIsLoading(false);
       }
-    } else {
-      console.log("❌ Formulário com erros de validação");
     }
   };
 
