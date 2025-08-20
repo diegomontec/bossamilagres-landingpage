@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   CForm,
   CFormInput,
@@ -126,7 +126,7 @@ const CityStateAutocomplete = ({
           />
           
 
-          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <div  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             {isTyping ? (
               <div className="animate-spin w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full"></div>
             ) : (
@@ -401,7 +401,7 @@ const FormComponent = () => {
       setIsLoading(true);
       
       try {
-        const webhookUrl = import.meta.env.VITE_MAKE_WEBHOOK;
+        const webhookUrl = 'https://hook.us1.make.com/yb5tvp5usf9hjkg6fdgdp0wvq4ub5w6u'
         
         if (!webhookUrl) {
           throw new Error("Webhook não configurado. Verifique o arquivo .env.local");
