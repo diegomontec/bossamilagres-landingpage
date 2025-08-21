@@ -6,13 +6,11 @@ import {
   CFormLabel,
   CAlert,
 } from "@coreui/react";
-import Button from "../button/Button";
 import { 
   citySearchEngine, 
   type City, 
   ESTADOS_COMPLETOS 
 } from "../../data/cities";
-
 
 const CityStateAutocomplete = ({ 
   value, 
@@ -200,7 +198,6 @@ const CityStateAutocomplete = ({
     </div>
   );
 };
-
 
 const InvestmentValueSelect = ({ 
   value, 
@@ -401,7 +398,7 @@ const FormComponent = () => {
       setIsLoading(true);
       
       try {
-        const webhookUrl = 'https://hook.us1.make.com/yb5tvp5usf9hjkg6fdgdp0wvq4ub5w6u'
+        const webhookUrl = 'https://hook.us1.make.com/yb5tvp5usf9hjkg6fdgdp0wvq4ub5w6u';
         
         if (!webhookUrl) {
           throw new Error("Webhook não configurado. Verifique o arquivo .env.local");
@@ -429,8 +426,6 @@ const FormComponent = () => {
           source: "Bossa Eco Luxury Villas Landing Page"
         };
 
-
-
         const response = await fetch(webhookUrl, {
           method: "POST",
           headers: {
@@ -438,8 +433,6 @@ const FormComponent = () => {
           },
           body: JSON.stringify(payload),
         });
-
-
 
         if (!response.ok) {
           throw new Error(`Erro ${response.status}: ${response.statusText}`);
@@ -462,7 +455,6 @@ const FormComponent = () => {
           setSubmitted(false);
         }, 5000);
       } catch (error) {
-
         setErrors(prev => ({
           ...prev,
           submit: `Erro ao enviar formulário: ${error instanceof Error ? error.message : 'Erro desconhecido'}`
@@ -604,13 +596,13 @@ const FormComponent = () => {
         />
       </div>
 
-      <Button 
+      <button 
         type="submit" 
-        className="w-full bg-red-800 text-white"
+        className="w-full bg-[#8d8b6f] text-white py-2 px-4 rounded hover:bg-[#8a886c] disabled:opacity-50"
         disabled={isLoading}
       >
         {isLoading ? "Enviando..." : "Saber mais!"}
-      </Button>
+      </button>
 
       {submitted && (
         <CAlert color="success" className="mt-4">

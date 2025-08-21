@@ -1,6 +1,6 @@
 import Form from '../form/Form';
 
-export default function SecaoDoze() {
+export default function SecaoOnze() {
   return (
     <section id='contato' className="relative w-full flex justify-center items-center">
       <img

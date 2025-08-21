@@ -1,4 +1,3 @@
-import Button from "../button/Button";
 import Carousel from "../carousel/Carousel";
 import Iframe from "../iframe/Iframe";
 
@@ -53,7 +52,11 @@ export default function SecaoQuatro() {
               alt="Conclusão da seção"
               loading="lazy"
             />
-            <Button href="#contato">Saiba mais!</Button>
+            <a href="#contato" className="no-underline hover:no-underline text-lg">
+              <button className="w-full bg-[#8d8b6f] text-white text-center  font-semibold py-3 px-18 rounded">
+                Saiba mais!
+              </button>
+            </a>
           </div>
         </article>
       </div>
