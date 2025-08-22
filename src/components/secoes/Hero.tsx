@@ -21,12 +21,12 @@ export default function Hero() {
         <div className="flex flex-col items-center gap-8">
           <img
             src="./images/carouselHero/fraseUm.webp"
-            className="w-1/2 sm:w-3/4"
+            className="w-1/2 sm:w-3/4 md:"
             alt="Trecho motivacional decorativo"
             loading="lazy"
           />
           <a href="#contato" className="no-underline hover:no-underline text-lg">
-            <button className="bg-[#8d8b6f] text-white text-center  font-semibold py-3 px-20 rounded">
+            <button className="bg-[#8d8b6f] text-white text-center  font-semibold py-2 px-20 rounded">
               Saiba mais!
             </button>
           </a>

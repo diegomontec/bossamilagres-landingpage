@@ -53,7 +53,7 @@ export default function SecaoQuatro() {
               loading="lazy"
             />
             <a href="#contato" className="no-underline hover:no-underline text-lg">
-              <button className="w-full bg-[#8d8b6f] text-white text-center  font-semibold py-3 px-18 rounded">
+              <button className="w-full bg-[#8d8b6f] text-white text-center  font-semibold py-2 px-18 rounded">
                 Saiba mais!
               </button>
             </a>

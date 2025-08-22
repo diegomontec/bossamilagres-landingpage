@@ -2,7 +2,7 @@ import Form from '../form/Form';
 
 export default function SecaoOnze() {
   return (
-    <section id='contato' className="relative w-full flex justify-center items-center">
+    <section className="relative w-full flex justify-center items-center">
       <img
         className="absolute inset-0 w-full h-full object-cover z-0"
         src="/images/secaoOnze/SecaoOnzeBG.webp"
