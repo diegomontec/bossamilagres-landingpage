@@ -287,7 +287,7 @@ const FormComponent = () => {
   const [data, setData] = useState({
     nome: "",
     email: "",
-    telefone: "",
+    telefone: "55",
     cidadeEstado: "",
     valorInvestimento: "",
     corretor: "Não",
