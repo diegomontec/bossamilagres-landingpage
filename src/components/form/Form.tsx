@@ -6,18 +6,43 @@ import {
   CFormLabel,
   CAlert,
 } from "@coreui/react";
-import { 
-  citySearchEngine, 
-  type City, 
-  ESTADOS_COMPLETOS 
+import {
+  citySearchEngine,
+  type City,
+  ESTADOS_COMPLETOS
 } from "../../data/cities";
 
-const CityStateAutocomplete = ({ 
-  value, 
-  onChange, 
-  onSelect, 
-  disabled, 
-  placeholder = "Digite sua cidade..." 
+const PHONE_PREFIX = "+55 ";
+
+const formatBRPhone = (nationalDigits: string) => {
+  const d = nationalDigits.replace(/\D/g, "").slice(0, 11);
+
+  if (d.length === 0) return PHONE_PREFIX;
+  if (d.length <= 2) return `${PHONE_PREFIX}(${d}`;
+  if (d.length <= 7) {
+    return `${PHONE_PREFIX}(${d.slice(0, 2)}) ${d.slice(2)}`;
+  }
+  if (d.length <= 11) {
+    const isMobile = d.length >= 10;
+    const mid = isMobile ? 7 : 6;
+    return `${PHONE_PREFIX}(${d.slice(0, 2)}) ${d.slice(2, mid)}-${d.slice(mid)}`;
+  }
+  return `${PHONE_PREFIX}(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7, 11)}`;
+};
+
+const stripToNational = (valueWithPrefix: string) => {
+  const digits = valueWithPrefix.replace(/\D/g, "");
+  const withoutCC = digits.startsWith("55") ? digits.slice(2) : digits;
+  return withoutCC;
+};
+
+
+const CityStateAutocomplete = ({
+  value,
+  onChange,
+  onSelect,
+  disabled,
+  placeholder = "Digite sua cidade..."
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -32,7 +57,7 @@ const CityStateAutocomplete = ({
   const [customInput, setCustomInput] = useState<string>("");
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  
+
   const searchTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
@@ -51,11 +76,11 @@ const CityStateAutocomplete = ({
     onChange(inputValue);
     setIsTyping(true);
     setShowCustomInput(false);
-    
+
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
-    
+
     searchTimeoutRef.current = setTimeout(() => {
       if (inputValue.length < 2) {
         setFilteredOptions([]);
@@ -66,7 +91,7 @@ const CityStateAutocomplete = ({
 
       const results = citySearchEngine.fuzzySearch(inputValue, 12);
       setFilteredOptions(results);
-      
+
       setIsOpen(true);
       setIsTyping(false);
     }, 300);
@@ -122,9 +147,9 @@ const CityStateAutocomplete = ({
             autoFocus={false}
             className="pr-10"
           />
-          
 
-          <div  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             {isTyping ? (
               <div className="animate-spin w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full"></div>
             ) : (
@@ -133,7 +158,7 @@ const CityStateAutocomplete = ({
               </svg>
             )}
           </div>
-          
+
           {isOpen && (
             <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
               {filteredOptions.length === 0 ? (
@@ -199,11 +224,11 @@ const CityStateAutocomplete = ({
   );
 };
 
-const InvestmentValueSelect = ({ 
-  value, 
-  onChange, 
-  disabled, 
-  placeholder = "Selecione um valor..." 
+const InvestmentValueSelect = ({
+  value,
+  onChange,
+  disabled,
+  placeholder = "Selecione um valor..."
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -258,14 +283,14 @@ const InvestmentValueSelect = ({
         className="pr-10 cursor-pointer"
         readOnly
       />
-      
+
 
       <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </div>
-      
+
       {isOpen && (
         <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
           {opcoesInvestimento.map((opcao) => (
@@ -287,15 +312,15 @@ const FormComponent = () => {
   const [data, setData] = useState({
     nome: "",
     email: "",
-    telefone: "55",
+    telefone: PHONE_PREFIX,
     cidadeEstado: "",
     valorInvestimento: "",
     corretor: "Não",
     comunicacao: false,
   });
 
-  const [errors, setErrors] = useState<{ 
-    telefone?: string; 
+  const [errors, setErrors] = useState<{
+    telefone?: string;
     submit?: string;
     nome?: string;
     email?: string;
@@ -303,9 +328,56 @@ const FormComponent = () => {
     valorInvestimento?: string;
     corretor?: string;
   }>({});
-  
+
   const [submitted, setSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const input = e.currentTarget;
+    const selectionStart = input.selectionStart ?? 0;
+
+    if (
+      (e.key === "Backspace" && selectionStart <= PHONE_PREFIX.length) ||
+      (e.key === "Delete" && selectionStart < PHONE_PREFIX.length)
+    ) {
+      e.preventDefault();
+      return;
+    }
+
+    const controlKeys = [
+      "Backspace", "Delete", "ArrowLeft", "ArrowRight", "Home", "End", "Tab",
+    ];
+    if (controlKeys.includes(e.key)) return;
+
+    if (!/^\d$/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+
+    let next = val.startsWith(PHONE_PREFIX) ? val : PHONE_PREFIX + val.replace(/^\+?55\s?/, "");
+
+    const national = stripToNational(next);
+    const formatted = formatBRPhone(national);
+
+    setData((prev) => ({ ...prev, telefone: formatted }));
+
+    if (errors.telefone) {
+      setErrors((prev) => ({ ...prev, telefone: undefined }));
+    }
+  };
+
+  const handlePhonePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text");
+    const digits = pasted.replace(/\D/g, "");
+    const withoutCC = digits.startsWith("55") ? digits.slice(2) : digits;
+    const formatted = formatBRPhone(withoutCC);
+    setData((prev) => ({ ...prev, telefone: formatted }));
+  };
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -332,16 +404,16 @@ const FormComponent = () => {
 
   const handleCidadeEstadoSelect = (cidade: string, estado: string) => {
     if (estado === "Personalizado") {
-      setData(prev => ({ 
-        ...prev, 
+      setData(prev => ({
+        ...prev,
         cidadeEstado: cidade,
         cidade: cidade,
         estado: "Não especificado"
       }));
     } else {
       const estadoCompleto = ESTADOS_COMPLETOS[estado] || estado;
-      setData(prev => ({ 
-        ...prev, 
+      setData(prev => ({
+        ...prev,
         cidadeEstado: `${cidade} - ${estado}`,
         cidade: cidade,
         estado: estadoCompleto
@@ -358,9 +430,11 @@ const FormComponent = () => {
 
   const validate = () => {
     const newErrors: typeof errors = {};
-    
-    if (data.telefone.length < 12) {
-      newErrors.telefone = "Este campo deve ter no mínimo 12 caracteres";
+
+    const phoneDigits = data.telefone.replace(/\D/g, ""); // inclui 55
+    // Exige ao menos 12 dígitos: 55 + DDD(2) + número (8/9)
+    if (phoneDigits.length < 12) {
+      newErrors.telefone = "Informe um telefone válido com DDD (ex.: +55 (82) 9XXXX-XXXX)";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -387,19 +461,20 @@ const FormComponent = () => {
     return newErrors;
   };
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const validationErrors = validate();
-    
+
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       setIsLoading(true);
-      
+
       try {
         const webhookUrl = 'https://hook.us1.make.com/yb5tvp5usf9hjkg6fdgdp0wvq4ub5w6u';
-        
+
         if (!webhookUrl) {
           throw new Error("Webhook não configurado. Verifique o arquivo .env.local");
         }
@@ -444,7 +519,7 @@ const FormComponent = () => {
         setData({
           nome: "",
           email: "",
-          telefone: "",
+          telefone: PHONE_PREFIX,
           cidadeEstado: "",
           valorInvestimento: "",
           corretor: "Não",
@@ -470,22 +545,22 @@ const FormComponent = () => {
       onSubmit={handleSubmit}
       className="w-full max-w-2xl text-white space-y-6"
     >
-      <div>
-        <CFormLabel htmlFor="nome">Nome *</CFormLabel>
-        <CFormInput
-          type="text"
-          id="nome"
-          name="nome"
-          required
-          value={data.nome}
-          onChange={handleChange}
-          autoFocus={false}
-          disabled={isLoading}
-        />
-        {errors.nome && (
-          <div className="text-danger text-sm mt-1">{errors.nome}</div>
+      <div> 
+        <CFormLabel htmlFor="nome">Nome *</CFormLabel> 
+        <CFormInput 
+        type="text" 
+        id="nome" 
+        name="nome" 
+        required 
+        value={data.nome} 
+        onChange={handleChange}     
+        autoFocus={false} 
+        disabled={isLoading} 
+        /> 
+        {errors.nome && ( <div className="text-danger text-sm mt-1">{errors.nome}
+        </div>
         )}
-      </div>
+        </div>
 
       <div>
         <CFormLabel htmlFor="email">Email *</CFormLabel>
@@ -513,8 +588,9 @@ const FormComponent = () => {
           placeholder="+55"
           required
           value={data.telefone}
-          onChange={handleChange}
-          invalid={!!errors.telefone}
+          onKeyDown={handlePhoneKeyDown}
+          onChange={handlePhoneChange}
+          onPaste={handlePhonePaste}
           autoFocus={false}
           disabled={isLoading}
         />
@@ -605,16 +681,16 @@ const FormComponent = () => {
       </button>
 
       {submitted && (
-        <CAlert color="success" className="mt-4">
-          Formulário enviado com sucesso! Entraremos em contato em breve.
-        </CAlert>
-      )}
+          <CAlert color="success" className="mt-4">
+            Formulário enviado com sucesso! Entraremos em contato em breve.
+          </CAlert>
+        )}
 
-      {errors.submit && (
-        <CAlert color="danger" className="mt-4">
-          {errors.submit}
-        </CAlert>
-      )}
+        {errors.submit && (
+          <CAlert color="danger" className="mt-4">
+            {errors.submit}
+          </CAlert>
+        )}
     </CForm>
   );
 };
