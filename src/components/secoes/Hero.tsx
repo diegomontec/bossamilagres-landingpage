@@ -2,6 +2,7 @@ import "@coreui/coreui/dist/css/coreui.min.css";
 
 
 export default function Hero() {
+
   return (
     <section className="relative w-full h-screen flex justify-center items-center">
       <img
@@ -25,8 +26,8 @@ export default function Hero() {
             alt="Trecho motivacional decorativo"
             loading="lazy"
           />
-          <a href="#contato" className="no-underline hover:no-underline text-lg">
-            <button className="bg-[#8d8b6f] text-white text-center  font-semibold py-2 px-20 rounded">
+          <a href="#form" className="no-underline hover:no-underline text-lg">
+            <button className="bg-[#8d8b6f] text-white text-center font-semibold py-2 px-20 rounded">
               Saiba mais!
             </button>
           </a>
