@@ -544,6 +544,7 @@ const FormComponent = () => {
     <CForm
       onSubmit={handleSubmit}
       className="w-full max-w-2xl text-white space-y-6"
+      id="forms"
     >
       <div> 
         <CFormLabel htmlFor="nome">Nome *</CFormLabel> 
