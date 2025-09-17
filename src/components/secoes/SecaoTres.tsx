@@ -12,7 +12,7 @@ export default function SecaoTres() {
           className="w-3/4 sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/2"
           src="./images/secaoTres/SecaoTresTexto.webp"
           alt="Descrição da Bossa Eco Luxury Villas"
-          loading="lazy"
+          // loading="lazy"
         />
       </div>
     </section>

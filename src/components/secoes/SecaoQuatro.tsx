@@ -19,7 +19,7 @@ export default function SecaoQuatro() {
         className="absolute inset-0 w-full h-full object-cover z-0"
         src="/images/secaoQuatro/SecaoQuatroBG.webp"
         alt="Plano de fundo verde texturizado"
-        loading="lazy"
+        // loading="lazy"
       />
 
       <div className="relative z-10 w-full py-32 px-8 flex flex-col items-center gap-24 justify-center">
