@@ -357,7 +357,7 @@ const FormComponent = () => {
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
 
-    let next = val.startsWith(PHONE_PREFIX) ? val : PHONE_PREFIX + val.replace(/^\+?55\s?/, "");
+    const next = val.startsWith(PHONE_PREFIX) ? val : PHONE_PREFIX + val.replace(/^\+?55\s?/, "");
 
     const national = stripToNational(next);
     const formatted = formatBRPhone(national);
@@ -630,7 +630,7 @@ const FormComponent = () => {
       </div>
 
       <div>
-        <CFormLabel>Corretor de imóveis? *</CFormLabel>
+        <CFormLabel>Você é corretor de imóveis? *</CFormLabel>
         <div className="space-y-2 mt-2">
           <CFormCheck
             type="radio"
