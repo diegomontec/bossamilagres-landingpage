@@ -9,7 +9,7 @@ import {
 import {
   citySearchEngine,
   type City,
-  ESTADOS_COMPLETOS
+  ESTADOS_COMPLETOS,
 } from "../../data/cities";
 
 const PHONE_PREFIX = "+55 ";
@@ -25,7 +25,9 @@ const formatBRPhone = (nationalDigits: string) => {
   if (d.length <= 11) {
     const isMobile = d.length >= 10;
     const mid = isMobile ? 7 : 6;
-    return `${PHONE_PREFIX}(${d.slice(0, 2)}) ${d.slice(2, mid)}-${d.slice(mid)}`;
+    return `${PHONE_PREFIX}(${d.slice(0, 2)}) ${d.slice(2, mid)}-${d.slice(
+      mid
+    )}`;
   }
   return `${PHONE_PREFIX}(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7, 11)}`;
 };
@@ -36,13 +38,12 @@ const stripToNational = (valueWithPrefix: string) => {
   return withoutCC;
 };
 
-
 const CityStateAutocomplete = ({
   value,
   onChange,
   onSelect,
   disabled,
-  placeholder = "Digite sua cidade..."
+  placeholder = "Digite sua cidade...",
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -62,14 +63,17 @@ const CityStateAutocomplete = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
         setShowCustomInput(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleInputChange = (inputValue: string) => {
@@ -148,13 +152,22 @@ const CityStateAutocomplete = ({
             className="pr-10"
           />
 
-
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             {isTyping ? (
               <div className="animate-spin w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full"></div>
             ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
             )}
           </div>
@@ -228,7 +241,7 @@ const InvestmentValueSelect = ({
   value,
   onChange,
   disabled,
-  placeholder = "Selecione um valor..."
+  placeholder = "Selecione um valor...",
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -247,13 +260,16 @@ const InvestmentValueSelect = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleFocus = () => {
@@ -266,7 +282,7 @@ const InvestmentValueSelect = ({
   };
 
   const getDisplayValue = () => {
-    const option = opcoesInvestimento.find(opt => opt.value === value);
+    const option = opcoesInvestimento.find((opt) => opt.value === value);
     return option ? option.label : "";
   };
 
@@ -284,10 +300,19 @@ const InvestmentValueSelect = ({
         readOnly
       />
 
-
       <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </div>
 
@@ -345,7 +370,13 @@ const FormComponent = () => {
     }
 
     const controlKeys = [
-      "Backspace", "Delete", "ArrowLeft", "ArrowRight", "Home", "End", "Tab",
+      "Backspace",
+      "Delete",
+      "ArrowLeft",
+      "ArrowRight",
+      "Home",
+      "End",
+      "Tab",
     ];
     if (controlKeys.includes(e.key)) return;
 
@@ -357,7 +388,9 @@ const FormComponent = () => {
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
 
-    const next = val.startsWith(PHONE_PREFIX) ? val : PHONE_PREFIX + val.replace(/^\+?55\s?/, "");
+    const next = val.startsWith(PHONE_PREFIX)
+      ? val
+      : PHONE_PREFIX + val.replace(/^\+?55\s?/, "");
 
     const national = stripToNational(next);
     const formatted = formatBRPhone(national);
@@ -378,7 +411,6 @@ const FormComponent = () => {
     setData((prev) => ({ ...prev, telefone: formatted }));
   };
 
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -391,40 +423,40 @@ const FormComponent = () => {
     }));
 
     if (errors[name as keyof typeof errors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
 
   const handleCidadeEstadoChange = (value: string) => {
-    setData(prev => ({ ...prev, cidadeEstado: value }));
+    setData((prev) => ({ ...prev, cidadeEstado: value }));
     if (errors.cidadeEstado) {
-      setErrors(prev => ({ ...prev, cidadeEstado: undefined }));
+      setErrors((prev) => ({ ...prev, cidadeEstado: undefined }));
     }
   };
 
   const handleCidadeEstadoSelect = (cidade: string, estado: string) => {
     if (estado === "Personalizado") {
-      setData(prev => ({
+      setData((prev) => ({
         ...prev,
         cidadeEstado: cidade,
         cidade: cidade,
-        estado: "Não especificado"
+        estado: "Não especificado",
       }));
     } else {
       const estadoCompleto = ESTADOS_COMPLETOS[estado] || estado;
-      setData(prev => ({
+      setData((prev) => ({
         ...prev,
         cidadeEstado: `${cidade} - ${estado}`,
         cidade: cidade,
-        estado: estadoCompleto
+        estado: estadoCompleto,
       }));
     }
   };
 
   const handleValorInvestimentoChange = (value: string) => {
-    setData(prev => ({ ...prev, valorInvestimento: value }));
+    setData((prev) => ({ ...prev, valorInvestimento: value }));
     if (errors.valorInvestimento) {
-      setErrors(prev => ({ ...prev, valorInvestimento: undefined }));
+      setErrors((prev) => ({ ...prev, valorInvestimento: undefined }));
     }
   };
 
@@ -434,7 +466,8 @@ const FormComponent = () => {
     const phoneDigits = data.telefone.replace(/\D/g, ""); // inclui 55
     // Exige ao menos 12 dígitos: 55 + DDD(2) + número (8/9)
     if (phoneDigits.length < 12) {
-      newErrors.telefone = "Informe um telefone válido com DDD (ex.: +55 (82) 9XXXX-XXXX)";
+      newErrors.telefone =
+        "Informe um telefone válido com DDD (ex.: +55 (82) 9XXXX-XXXX)";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -461,78 +494,67 @@ const FormComponent = () => {
     return newErrors;
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const validationErrors = validate();
-
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       setIsLoading(true);
 
       try {
-        const webhookUrl = 'https://hook.us1.make.com/yb5tvp5usf9hjkg6fdgdp0wvq4ub5w6u';
+        const formElement = e.currentTarget as HTMLFormElement;
+        const formData = new FormData(formElement);
 
-        if (!webhookUrl) {
-          throw new Error("Webhook não configurado. Verifique o arquivo .env.local");
-        }
+        // 🔸 Captura dos valores UTM adicionados pelo UTMTracker
+        const utm_source = (formData.get("utm_source") as string) || "";
+        const utm_medium = (formData.get("utm_medium") as string) || "";
+        const utm_campaign = (formData.get("utm_campaign") as string) || "";
+        const utm_content = (formData.get("utm_content") as string) || "";
 
-        let cidade = data.cidadeEstado;
-        let estado = "Não especificado";
-
-        if (data.cidadeEstado.includes(' - ')) {
-          const [cidadePart, estadoSigla] = data.cidadeEstado.split(' - ');
-          cidade = cidadePart;
-          estado = ESTADOS_COMPLETOS[estadoSigla] || estadoSigla;
-        }
-
+        // 🔸 Seus dados existentes + os UTMs
         const payload = {
-          nome: data.nome,
-          email: data.email,
-          telefone: data.telefone,
-          cidade: cidade,
-          estado: estado,
-          valorInvestimento: data.valorInvestimento,
-          corretor: data.corretor,
-          comunicacao: data.comunicacao,
+          ...data,
+          utm_source,
+          utm_medium,
+          utm_campaign,
+          utm_content,
           timestamp: new Date().toISOString(),
-          source: "Bossa Eco Luxury Villas Landing Page"
+          source: "Bossa Eco Luxury Villas Landing Page",
         };
 
-        const response = await fetch(webhookUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
+        const response = await fetch(
+          "https://hook.us1.make.com/yb5tvp5usf9hjkg6fdgdp0wvq4ub5w6u",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }
+        );
 
         if (!response.ok) {
-          throw new Error(`Erro ${response.status}: ${response.statusText}`);
+          throw new Error(`Erro ${response.status}`);
         }
 
         await response.text();
-
         setSubmitted(true);
         setData({
           nome: "",
           email: "",
-          telefone: PHONE_PREFIX,
+          telefone: "",
           cidadeEstado: "",
           valorInvestimento: "",
-          corretor: "Não",
+          corretor: "",
           comunicacao: false,
         });
-
-        setTimeout(() => {
-          setSubmitted(false);
-        }, 5000);
       } catch (error) {
-        setErrors(prev => ({
+        setErrors((prev) => ({
           ...prev,
-          submit: `Erro ao enviar formulário: ${error instanceof Error ? error.message : 'Erro desconhecido'}`
+          submit:
+            error instanceof Error
+              ? `Erro ao enviar formulário: ${error.message}`
+              : "Erro desconhecido ao enviar formulário",
         }));
       } finally {
         setIsLoading(false);
@@ -546,22 +568,22 @@ const FormComponent = () => {
       className="w-full max-w-2xl text-white space-y-6"
       id="forms"
     >
-      <div> 
-        <CFormLabel htmlFor="nome">Nome *</CFormLabel> 
-        <CFormInput 
-        type="text" 
-        id="nome" 
-        name="nome" 
-        required 
-        value={data.nome} 
-        onChange={handleChange}     
-        autoFocus={false} 
-        disabled={isLoading} 
-        /> 
-        {errors.nome && ( <div className="text-danger text-sm mt-1">{errors.nome}
-        </div>
+      <div>
+        <CFormLabel htmlFor="nome">Nome *</CFormLabel>
+        <CFormInput
+          type="text"
+          id="nome"
+          name="nome"
+          required
+          value={data.nome}
+          onChange={handleChange}
+          autoFocus={false}
+          disabled={isLoading}
+        />
+        {errors.nome && (
+          <div className="text-danger text-sm mt-1">{errors.nome}</div>
         )}
-        </div>
+      </div>
 
       <div>
         <CFormLabel htmlFor="email">Email *</CFormLabel>
@@ -625,7 +647,9 @@ const FormComponent = () => {
           placeholder="Selecione um valor..."
         />
         {errors.valorInvestimento && (
-          <div className="text-danger text-sm mt-1">{errors.valorInvestimento}</div>
+          <div className="text-danger text-sm mt-1">
+            {errors.valorInvestimento}
+          </div>
         )}
       </div>
 
@@ -673,8 +697,8 @@ const FormComponent = () => {
         />
       </div>
 
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         className="w-full bg-[#8d8b6f] text-white py-2 px-4 rounded hover:bg-[#8a886c] disabled:opacity-50"
         disabled={isLoading}
       >
@@ -682,16 +706,16 @@ const FormComponent = () => {
       </button>
 
       {submitted && (
-          <CAlert color="success" className="mt-4">
-            Formulário enviado com sucesso! Entraremos em contato em breve.
-          </CAlert>
-        )}
+        <CAlert color="success" className="mt-4">
+          Formulário enviado com sucesso! Entraremos em contato em breve.
+        </CAlert>
+      )}
 
-        {errors.submit && (
-          <CAlert color="danger" className="mt-4">
-            {errors.submit}
-          </CAlert>
-        )}
+      {errors.submit && (
+        <CAlert color="danger" className="mt-4">
+          {errors.submit}
+        </CAlert>
+      )}
     </CForm>
   );
 };
