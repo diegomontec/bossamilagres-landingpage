@@ -14,11 +14,13 @@ import SecaoTreze from "./components/secoes/SecaoTreze";
 import SecaoQuatorze from "./components/secoes/SecaoQuatorze";
 import SecaoQuinze from "./components/secoes/SecaoQuinze";
 import PartytownSetup from "./components/partyTownSetup";
+import UTMTracker from "./components/UTMTracker";
 
 function App() {
   return (
     <div>
       <PartytownSetup />
+      <UTMTracker />
       <noscript>
         <iframe
           src="https://server.bossamilagres.com.br/ns.html?id=GTM-KPSNXP7G"
