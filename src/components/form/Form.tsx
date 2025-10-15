@@ -512,6 +512,7 @@ const FormComponent = () => {
         const utm_medium = (formData.get("utm_medium") as string) || "";
         const utm_campaign = (formData.get("utm_campaign") as string) || "";
         const utm_content = (formData.get("utm_content") as string) || "";
+        const utm_term = (formData.get("utm_term") as string) || "";
 
         // 🔸 Seus dados existentes + os UTMs
         const payload = {
@@ -520,6 +521,7 @@ const FormComponent = () => {
           utm_medium,
           utm_campaign,
           utm_content,
+          utm_term,
           timestamp: new Date().toISOString(),
           source: "Bossa Eco Luxury Villas Landing Page",
         };
