@@ -10,6 +10,7 @@ export default function UTMTracker() {
     const utm_medium = url.searchParams.get("utm_medium") || "";
     const utm_campaign = url.searchParams.get("utm_campaign") || "";
     const utm_content = url.searchParams.get("utm_content") || "";
+    const utm_term = url.searchParams.get("utm_term") || "";
 
     const setHiddenField = (form: HTMLFormElement, name: string, value: string) => {
       const existingInput = form.querySelector<HTMLInputElement>(`input[name="${name}"]`);
@@ -31,6 +32,7 @@ export default function UTMTracker() {
         setHiddenField(f, "utm_medium", utm_medium);
         setHiddenField(f, "utm_campaign", utm_campaign);
         setHiddenField(f, "utm_content", utm_content);
+        setHiddenField(f, "utm_term", utm_term);
       });
     }, 300);
   }, []);

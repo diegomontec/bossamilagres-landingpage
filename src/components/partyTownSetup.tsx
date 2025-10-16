@@ -58,7 +58,33 @@ export default function PartytownSetup() {
             document.body.appendChild(whatsappButton);
 
             whatsappButton.addEventListener("click", () => {
-                window.open("https://wa.me/5582991653973", "_blank");
+                const url = new URL(window.location.href);
+                const utm_source = url.searchParams.get("utm_source") || "";
+                const utm_medium = url.searchParams.get("utm_medium") || "";
+                const utm_campaign = url.searchParams.get("utm_campaign") || "";
+                const utm_content = url.searchParams.get("utm_content") || "";
+                const utm_term = url.searchParams.get("utm_term") || "";
+
+                const baseMessage = "Olá! Tenho interesse no Bossa Eco Luxury Villas.";
+                let whatsappUrl = \`https://wa.me/5582991653973?text=\${encodeURIComponent(baseMessage)}\`;
+
+                if (utm_source) {
+                    whatsappUrl += \`&utm_source=\${encodeURIComponent(utm_source)}\`;
+                }
+                if (utm_medium) {
+                    whatsappUrl += \`&utm_medium=\${encodeURIComponent(utm_medium)}\`;
+                }
+                if (utm_campaign) {
+                    whatsappUrl += \`&utm_campaign=\${encodeURIComponent(utm_campaign)}\`;
+                }
+                if (utm_content) {
+                    whatsappUrl += \`&utm_content=\${encodeURIComponent(utm_content)}\`;
+                }
+                if (utm_term) {
+                    whatsappUrl += \`&utm_term=\${encodeURIComponent(utm_term)}\`;
+                }
+
+                window.open(whatsappUrl, "_blank");
             });
           `,
         }}
